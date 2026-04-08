@@ -1,23 +1,24 @@
 pluginManagement {
     repositories {
-        maven { url "https://jitpack.io" } // Преместено най-отгоре
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url "https://jitpack.io" }
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven { url "https://jitpack.io" } // Преместено най-отгоре
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 
 rootProject.name = "NewBlackbox"
 
 include ':app'
-include(":black-reflection")
-include(":compiler")
+include ':black-reflection'
+include ':compiler'
 include ':Bcore'
