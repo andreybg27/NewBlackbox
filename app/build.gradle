@@ -4,10 +4,12 @@ plugins {
 }
 
 android {
-
     namespace 'top.niunaijun.blackboxa'
     compileSdk rootProject.ext.compileSdkVersion
-    ndkVersion = "29.0.13846066"
+    
+    // NDK версията е добре да бъде по-стабилна за Blackbox проекти
+    ndkVersion = "25.2.9519653" 
+
     defaultConfig {
         applicationId "top.niunaijun.blackbox"
         minSdk rootProject.ext.minSdk
@@ -17,14 +19,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        splits {
-            abi {
-                enable true
-                reset()
-                
-                include 'armeabi-v7a', "arm64-v8a"
-                universalApk true
-            }
+        // ABI конфигурация
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -35,15 +32,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     buildFeatures {
         viewBinding true
+        dataBinding true // ДОБАВЕНО: Задължително за Blackbox
     }
+
     kotlinOptions {
-        jvmTarget = '21'
+        jvmTarget = '17'
     }
 
     applicationVariants.configureEach { variant ->
@@ -61,38 +62,35 @@ dependencies {
     implementation libs.material
     implementation libs.constraintlayout
     implementation libs.core.ktx
+    
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
-    implementation "androidx.preference:preference-ktx:1.1.1"
+    implementation "androidx.preference:preference-ktx:1.2.1"
     
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
 
-    
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'com.gitee.cbfg5210:RVAdapter:0.3.7'
 
-    
     implementation 'com.github.Othershe:CornerLabelView:1.0.0'
     
-    implementation 'com.github.nukc.stateview:kotlin:2.2.0'
+    // ПОПРАВЕНО: Правилното име за JitPack (StateView с главни букви)
+    implementation 'com.github.nukc:StateView:2.2.0'
     
-    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
-    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.1'
+    implementation 'com.tbuonomo:dotsindicator:5.0'
     
     implementation 'org.osmdroid:osmdroid-android:6.1.11'
     
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.afollestad.material-dialogs:input:3.3.0'
 
-
-
-
-
+    implementation 'androidx.work:work-runtime:2.9.0'
     
-    implementation 'androidx.work:work-runtime:2.7.1'
-
+    // ДОБАВЕНО: Тъй като си на Android 12, това е критично за работата на проекта
+    implementation "org.lsposed.hiddenapibypass:hiddenapibypass:${rootProject.ext.hiddenApiBypass}"
 }
