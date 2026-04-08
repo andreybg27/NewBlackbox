@@ -1,6 +1,6 @@
 [versions]
-# Използваме стабилна версия на AGP, съвместима с Gradle 8.13
-agp = "8.13.2"
+# Версия за Gradle 8.13
+agp = "8.7.3"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -8,7 +8,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.2.0"
 
-# ПРАВИЛНАТА ВЕРСИЯ: Променяме на 2.0.21, за да се разчитат новите метаданни
+# ВАЖНО: Вдигаме на 2.0.21, за да изчезне грешката с Unit.class
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 
@@ -23,6 +23,5 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-# Този плъгин автоматично ще използва версия 2.0.21
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
